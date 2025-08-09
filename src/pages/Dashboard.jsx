@@ -6,9 +6,10 @@ import { AuthContext } from '../context/AuthContext';
 import PageWrapper from '../components/PageWrapper';
 import { motion } from 'framer-motion';
 import Skeleton from 'react-loading-skeleton';
+import { toast } from 'react-toastify';
+import { confirmAlert } from 'react-confirm-alert';
 
 // --- SKELETON COMPONENT ---
-// This component is shown while the real data is loading.
 const DashboardSkeleton = () => {
   return (
     <div className="container">
@@ -59,7 +60,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     const fetchTrips = async () => {
-      // Set loading to true every time we fetch
       setIsLoading(true);
       try {
         const response = await fetch('http://localhost:5000/api/trips', {
@@ -90,29 +90,44 @@ export default function Dashboard() {
       if (!response.ok) throw new Error('Failed to create trip.');
       const newTrip = await response.json();
       setTrips([newTrip, ...trips]);
+      toast.success('Trip created successfully!');
       setNewTripName('');
     } catch (err) {
-      setError(err.message);
+      toast.error(err.message);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleDeleteTrip = async (tripId) => {
-    if (!window.confirm('Are you sure you want to delete this trip?')) return;
-    try {
-      const response = await fetch(`http://localhost:5000/api/trips/${tripId}`, {
-        method: 'DELETE',
-        headers: { 'x-auth-token': authToken },
-      });
-      if (!response.ok) throw new Error('Failed to delete trip.');
-      setTrips(trips.filter((trip) => trip._id !== tripId));
-    } catch (err) {
-      setError(err.message);
-    }
+  const handleDeleteTrip = (tripId) => {
+    confirmAlert({
+      title: 'Confirm Deletion',
+      message: 'Are you sure you want to delete this trip? This action cannot be undone.',
+      buttons: [
+        {
+          label: 'Yes, Delete',
+          onClick: async () => {
+            try {
+              const response = await fetch(`http://localhost:5000/api/trips/${tripId}`, {
+                method: 'DELETE',
+                headers: { 'x-auth-token': authToken },
+              });
+              if (!response.ok) throw new Error('Failed to delete trip.');
+              setTrips(trips.filter((trip) => trip._id !== tripId));
+              toast.success('Trip deleted!');
+            } catch (err) {
+              toast.error(err.message);
+            }
+          },
+        },
+        {
+          label: 'No',
+          onClick: () => {},
+        },
+      ],
+    });
   };
 
-  // If the page is loading, show the skeleton.
   if (isLoading) {
     return (
       <PageWrapper>
@@ -141,8 +156,8 @@ export default function Dashboard() {
               />
             </div>
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isSubmitting}
             >

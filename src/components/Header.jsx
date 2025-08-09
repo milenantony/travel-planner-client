@@ -3,7 +3,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { motion } from 'framer-motion'; // <-- IMPORT
+import { motion } from 'framer-motion';
+import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
   const { user, logout } = useContext(AuthContext);
@@ -17,22 +18,14 @@ export default function Header() {
   return (
     <header className="header">
       <Link to="/" className="logo">
-        AI Planner
+        <motion.span className="logo-main" whileHover={{ letterSpacing: '1px' }}>Plan</motion.span>
+        <motion.span className="logo-accent" whileHover={{ letterSpacing: '1px' }}>Trips</motion.span>
       </Link>
       <nav>
         {user ? (
           <>
             <Link to="/dashboard">Dashboard</Link>
-            
-            {/* --- THIS IS THE CHANGE --- */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleLogout}
-              className="logout-button"
-            >
-              Logout
-            </motion.button>
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleLogout} className="nav-button">Logout</motion.button>
           </>
         ) : (
           <>
@@ -40,6 +33,7 @@ export default function Header() {
             <Link to="/register">Register</Link>
           </>
         )}
+        <ThemeToggle />
       </nav>
     </header>
   );

@@ -1,48 +1,198 @@
-/* src/App.css */
+/* client/src/App.css */
 
-.header {
+/* --- LAYOUT & GLOBAL --- */
+.page-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.header .logo {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: #4f46e5;
-  text-decoration: none;
-}
-
-.header nav {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.header nav a {
-  text-decoration: none;
-  color: #4b5563;
-  font-weight: 500;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  padding: 2rem 1rem;
 }
 
 .container {
   max-width: 800px;
-  margin: 2rem auto;
-  padding: 1rem;
-  text-align: center;
-  font-family: sans-serif;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
-/* Styles for Forms */
-.form-container {
-  max-width: 400px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background-color: white;
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: color-mix(in srgb, var(--bg-card) 70%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header nav {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.error {
+  color: #ef4444;
+}
+
+/* --- LOGO & LINKS --- */
+.logo {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.logo-main {
+  color: var(--text-main);
+}
+
+.logo-accent {
+  color: var(--primary);
+  transition: letter-spacing 0.3s ease;
+}
+
+.logo:hover .logo-accent {
+  letter-spacing: 1px;
+}
+
+.header nav a {
+  text-decoration: none;
+  color: var(--text-light);
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.nav-button:hover,
+.header nav a:hover {
+  background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+  color: var(--primary);
+}
+
+.trip-link {
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.2s;
+}
+
+.trip-link:hover {
+  color: var(--primary);
+}
+
+
+/* --- BUTTONS --- */
+button {
+  border: none;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 12px 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  background-color: var(--primary);
+  color: white;
+}
+
+button:hover {
+  background-color: var(--primary-hover);
+}
+
+html.dark button {
+  background-color: var(--border);
+  color: var(--text-main);
+}
+
+html.dark button:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.nav-button {
+  background: none;
+  color: var(--text-light);
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.theme-toggle {
+  background: none;
+  color: var(--text-light);
+  padding: 6px;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+  color: var(--primary);
+}
+
+.delete-button {
+  background-color: #ef4444 !important;
+}
+
+.delete-button:hover {
+  background-color: #dc2626 !important;
+}
+
+.delete-button-small,
+.delete-button-tiny {
+  background: none;
+  color: var(--text-light);
+}
+
+.delete-button-small:hover,
+.delete-button-tiny:hover {
+  background-color: var(--border);
+  color: #ef4444;
+}
+
+.delete-button-tiny {
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+}
+
+
+/* --- FORMS --- */
+.form-container {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem; /* <-- INCREASED PADDING */
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+html.dark .form-container {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
 }
 
 .form-group {
@@ -54,117 +204,157 @@
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
+  color: var(--text-light);
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: var(--text-light);
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  box-sizing: border-box; /* Important for padding to work correctly */
-}
-
-/* Re-add styles from previous step */
-button {
-  background-color: #6366f1;
-  color: white;
-  border: none;
-  padding: 12px 24px;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  border: 1px solid var(--border);
   border-radius: 8px;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  box-sizing: border-box;
   font-size: 1rem;
-  cursor: pointer;
-  width: 100%;
-  transition: background-color 0.2s;
 }
 
-button:hover { background-color: #4f46e5; }
-button:disabled { background-color: #a5b4fc; cursor: not-allowed; }
-.error { color: #ef4444; margin-top: 1rem; }
-.suggestions-list { margin-top: 2rem; text-align: left; }
-.suggestion-card { background-color: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
-.suggestion-card h3 { margin-top: 0; }
+.form-group input:focus {
+  outline: 2px solid var(--primary);
+  border-color: transparent;
+}
 
-/* client/src/App.css */
 
-/* ... add this at the end ... */
+/* --- CARDS & LISTS --- */
+.trip-item,
+.destination-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem; /* <-- INCREASED PADDING */
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.suggestions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.ai-suggestion-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem; /* <-- INCREASED PADDING */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+html.dark .ai-suggestion-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ai-suggestion-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+html.dark .ai-suggestion-card:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.ai-suggestion-card-icon {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 100px;
+  line-height: 1;
+  color: var(--text-main);
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ai-suggestion-card h3 {
+  font-family: 'Poppins', sans-serif;
+  color: var(--primary);
+  margin: 0 0 0.75rem 0;
+  font-size: 1.25rem;
+  z-index: 1;
+}
+
+.ai-suggestion-card p {
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-light);
+  flex-grow: 1;
+  z-index: 1;
+}
+
+.ai-suggestion-card .details {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  z-index: 1;
+}
+
+.ai-suggestion-card .details span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ai-suggestion-card .details svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-light);
+}
+
 .trip-item-list {
   list-style-type: none;
   padding: 0;
 }
 
 .trip-item {
-  background-color: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-}
-
-/* client/src/App.css */
-
-/* ... add this at the end ... */
-.trip-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.delete-button {
-  background-color: #ef4444; /* Red */
-  font-size: 0.8rem;
-  padding: 8px 12px;
-  width: auto; /* Override the default 100% width */
-}
-
-.delete-button:hover {
-  background-color: #dc2626; /* Darker Red */
-
-}
-
-.trip-link {
-  text-decoration: none;
-  color: #111827;
-  font-weight: 500;
-}
-.trip-link:hover {
-  color: #4f46e5;
-}
-
-/* client/src/App.css */
-/* ... add at the end ... */
-
-.destination-card {
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  margin-bottom: 1.5rem;
 }
 
 .destination-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border);
   padding-bottom: 1rem;
   margin-bottom: 1rem;
 }
 
 .destination-header h3 {
   margin: 0;
-}
-
-.delete-button-small {
-  background-color: #fef2f2;
-  color: #ef4444;
-  border: 1px solid #fecaca;
-  font-size: 0.8rem;
-  padding: 6px 10px;
-  width: auto;
-}
-.delete-button-small:hover {
-  background-color: #fee2e2;
 }
 
 .activity-list {
@@ -180,26 +370,10 @@ button:disabled { background-color: #a5b4fc; cursor: not-allowed; }
   padding: 0.5rem;
   border-radius: 4px;
 }
+
 .activity-list li:nth-child(odd) {
-  background-color: #f9fafb;
+  background-color: color-mix(in srgb, var(--bg-card) 50%, var(--bg-main));
 }
-
-.delete-button-tiny {
-    background-color: #f87171;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    font-size: 0.8rem;
-    line-height: 24px;
-    padding: 0;
-    cursor: pointer;
-}
-.delete-button-tiny:hover {
-    background-color: #ef4444;
-}
-
 
 .activity-form {
   display: flex;
@@ -217,25 +391,50 @@ button:disabled { background-color: #a5b4fc; cursor: not-allowed; }
   font-size: 0.9rem;
 }
 
-/* Styles for the Logout Button in the Header */
-.logout-button {
-  background-color: transparent;
-  border: none;
-  /* Add some padding so the background has space */
-  padding: 8px 12px;
-  border-radius: 6px;
-  margin: -8px 0; /* Adjust margin to keep alignment */
-  font-size: 1rem;
-  font-family: inherit;
-  font-weight: 500;
-  cursor: pointer;
-  color: #6366f1; /* The default indigo color */
-  /* Make the transition smooth for both color and background */
-  transition: background-color 0.2s, color 0.2s;
+
+/* --- THIRD-PARTY LIBRARY STYLES --- */
+
+.react-confirm-alert-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
 }
 
-.logout-button:hover {
-  color: #4f46e5; /* Darker text on hover */
-  /* THIS IS THE KEY FIX: Add a light background on hover */
-  background-color: rgba(238, 242, 255, 0.8); /* A very light, semi-transparent indigo */
+.react-confirm-alert {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+  width: 450px;
+  padding: 2.5rem; /* <-- INCREASED PADDING */
+}
+
+.react-confirm-alert h1 {
+  font-family: 'Poppins', sans-serif;
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.react-confirm-alert .react-confirm-alert-button-group {
+  justify-content: flex-end;
+}
+
+.react-confirm-alert .react-confirm-alert-button-group button {
+  width: auto;
+  font-weight: 500;
+  padding: 10px 20px;
+}
+
+.react-confirm-alert .react-confirm-alert-button-group button:nth-child(2) {
+  background-color: #ef4444 !important;
+}
+
+.Toastify__toast-theme--dark {
+  background: #1f2937 !important;
+  color: #f9fafb !important;
+}
+
+.Toastify__toast-theme--light {
+  background: #ffffff !important;
+  color: #111827 !important;
 }
