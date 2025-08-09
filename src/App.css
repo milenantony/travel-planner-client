@@ -1,0 +1,241 @@
+/* src/App.css */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header .logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+.header nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.header nav a {
+  text-decoration: none;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+/* Styles for Forms */
+.form-container {
+  max-width: 400px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  box-sizing: border-box; /* Important for padding to work correctly */
+}
+
+/* Re-add styles from previous step */
+button {
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+button:hover { background-color: #4f46e5; }
+button:disabled { background-color: #a5b4fc; cursor: not-allowed; }
+.error { color: #ef4444; margin-top: 1rem; }
+.suggestions-list { margin-top: 2rem; text-align: left; }
+.suggestion-card { background-color: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+.suggestion-card h3 { margin-top: 0; }
+
+/* client/src/App.css */
+
+/* ... add this at the end ... */
+.trip-item-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.trip-item {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+/* client/src/App.css */
+
+/* ... add this at the end ... */
+.trip-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-button {
+  background-color: #ef4444; /* Red */
+  font-size: 0.8rem;
+  padding: 8px 12px;
+  width: auto; /* Override the default 100% width */
+}
+
+.delete-button:hover {
+  background-color: #dc2626; /* Darker Red */
+
+}
+
+.trip-link {
+  text-decoration: none;
+  color: #111827;
+  font-weight: 500;
+}
+.trip-link:hover {
+  color: #4f46e5;
+}
+
+/* client/src/App.css */
+/* ... add at the end ... */
+
+.destination-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 1.5rem;
+}
+
+.destination-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.destination-header h3 {
+  margin: 0;
+}
+
+.delete-button-small {
+  background-color: #fef2f2;
+  color: #ef4444;
+  border: 1px solid #fecaca;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  width: auto;
+}
+.delete-button-small:hover {
+  background-color: #fee2e2;
+}
+
+.activity-list {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.activity-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+.activity-list li:nth-child(odd) {
+  background-color: #f9fafb;
+}
+
+.delete-button-tiny {
+    background-color: #f87171;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+    line-height: 24px;
+    padding: 0;
+    cursor: pointer;
+}
+.delete-button-tiny:hover {
+    background-color: #ef4444;
+}
+
+
+.activity-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.activity-form input {
+  flex-grow: 1;
+  padding: 0.5rem;
+}
+
+.activity-form button {
+  width: auto;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+/* Styles for the Logout Button in the Header */
+.logout-button {
+  background-color: transparent;
+  border: none;
+  /* Add some padding so the background has space */
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: -8px 0; /* Adjust margin to keep alignment */
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  color: #6366f1; /* The default indigo color */
+  /* Make the transition smooth for both color and background */
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.logout-button:hover {
+  color: #4f46e5; /* Darker text on hover */
+  /* THIS IS THE KEY FIX: Add a light background on hover */
+  background-color: rgba(238, 242, 255, 0.8); /* A very light, semi-transparent indigo */
+}
