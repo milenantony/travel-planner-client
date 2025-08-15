@@ -438,3 +438,123 @@ html.dark .ai-suggestion-card:hover {
   background: #ffffff !important;
   color: #111827 !important;
 }
+
+/* Add these new styles to the end of your App.css file */
+
+/* --- HOME PAGE SPECIFIC STYLES --- */
+.hero-section {
+  padding: 2rem 0;
+  text-align: center;
+}
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+.hero-section p {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 1.5rem;
+}
+
+/* Override for form inputs to not have an icon padding */
+.form-group select,
+.form-group input[type="date"],
+.form-group input[type="text"] {
+  padding: 0.75rem; /* Remove left padding for icon */
+}
+
+/* --- ITINERARY RESULTS STYLES --- */
+.results-container {
+  margin-top: 3rem;
+}
+.itinerary-list h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+.day-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.day-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07);
+}
+.day-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.day-card-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-family: 'Poppins', sans-serif;
+}
+.day-card-body p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: var(--text-light);
+}
+.day-card-body p strong {
+  color: var(--text-main);
+  font-weight: 600;
+}
+.theme-pill {
+  background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+}
+.spinner {
+  border: 5px solid var(--border);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-left-color: var(--primary);
+  animation: spin 1s ease-in-out infinite;
+  margin: 2rem auto;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add these new styles to the end of your App.css file */
+
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  resize: vertical;
+}
+
+.form-group textarea:focus {
+  outline: 2px solid var(--primary);
+  border-color: transparent;
+}

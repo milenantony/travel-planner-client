@@ -9,34 +9,32 @@ import Skeleton from 'react-loading-skeleton';
 import { toast } from 'react-toastify';
 import { confirmAlert } from 'react-confirm-alert';
 
-// --- SKELETON COMPONENT ---
 const DashboardSkeleton = () => {
   return (
     <div className="container">
       <h1><Skeleton width={200} /></h1>
-      <div className="form-container" style={{ maxWidth: '600px', margin: '2rem auto' }}>
-        <h2><Skeleton width={250} /></h2>
-        <div className="form-group">
-          <Skeleton height={40} />
+      <div className="flex flex-wrap -mx-4 mt-8">
+        <div className="w-full lg:w-1/2 px-4 mb-8">
+          <Skeleton height={250} />
         </div>
-        <Skeleton height={48} />
-      </div>
-      <div className="trips-list">
-        <h2><Skeleton width={150} /></h2>
-        <ul className="trip-item-list">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <li key={index} className="trip-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Skeleton height={24} width="60%" />
-              <Skeleton height={36} width="80px" />
-            </li>
-          ))}
-        </ul>
+        <div className="w-full lg:w-1/2 px-4">
+          <div className="trips-list">
+            <h2><Skeleton width={150} /></h2>
+            <ul className="trip-item-list">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <li key={index} className="trip-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Skeleton height={24} width="60%" />
+                  <Skeleton height={36} width="80px" />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-// --- MAIN DASHBOARD COMPONENT ---
 export default function Dashboard() {
   const [trips, setTrips] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,13 +43,9 @@ export default function Dashboard() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { authToken } = useContext(AuthContext);
 
-  // Animation Variants for the list
   const containerVariant = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
   };
   const itemVariant = {
     hidden: { y: 20, opacity: 0 },
@@ -62,7 +56,7 @@ export default function Dashboard() {
     const fetchTrips = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch('http://localhost:5000/api/trips', {
+        const response = await fetch('/api/trips', {
           headers: { 'x-auth-token': authToken },
         });
         if (!response.ok) throw new Error('Could not fetch trips');
@@ -82,7 +76,7 @@ export default function Dashboard() {
     setIsSubmitting(true);
     setError(null);
     try {
-      const response = await fetch('http://localhost:5000/api/trips', {
+      const response = await fetch('/api/trips', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-auth-token': authToken },
         body: JSON.stringify({ name: newTripName }),
@@ -108,7 +102,7 @@ export default function Dashboard() {
           label: 'Yes, Delete',
           onClick: async () => {
             try {
-              const response = await fetch(`http://localhost:5000/api/trips/${tripId}`, {
+              const response = await fetch(`/api/trips/${tripId}`, {
                 method: 'DELETE',
                 headers: { 'x-auth-token': authToken },
               });
@@ -120,10 +114,7 @@ export default function Dashboard() {
             }
           },
         },
-        {
-          label: 'No',
-          onClick: () => {},
-        },
+        { label: 'No', onClick: () => {} },
       ],
     });
   };
@@ -141,58 +132,69 @@ export default function Dashboard() {
       <div className="container">
         <h1>My Dashboard</h1>
         
-        <div className="form-container" style={{ maxWidth: '600px', margin: '2rem auto' }}>
-          <h2>Create a New Trip</h2>
-          <form onSubmit={handleCreateTrip}>
-            <div className="form-group">
-              <label htmlFor="tripName">Trip Name</label>
-              <input
-                type="text"
-                id="tripName"
-                value={newTripName}
-                onChange={(e) => setNewTripName(e.target.value)}
-                placeholder="e.g., Wayanad Adventure"
-                required
-              />
-            </div>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              type="submit"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Creating...' : 'Create Trip'}
-            </motion.button>
-          </form>
-        </div>
-
-        <div className="trips-list">
-          <h2>My Trips</h2>
-          {error && <p className="error">Error: {error}</p>}
+        <div className="flex flex-wrap -mx-4 mt-8">
           
-          <motion.ul
-            className="trip-item-list"
-            variants={containerVariant}
-            initial="hidden"
-            animate="visible"
-          >
-            {!isLoading && trips.length === 0 && <p>You have no trips yet. Time to plan one!</p>}
-            {trips.map((trip) => (
-              <motion.li key={trip._id} className="trip-item" variants={itemVariant}>
-                <Link to={`/trip/${trip._id}`} className="trip-link">
-                  {trip.name}
-                </Link>
+          {/* --- THIS IS THE "ADD TRIP" SECTION --- */}
+          <div className="w-full lg:w-1/2 px-4 mb-8">
+            <div className="form-container">
+              <h2>Create a New Trip</h2>
+              <p className="text-sm text-gray-500 mb-4">Give your trip a name to get started.</p>
+              <form onSubmit={handleCreateTrip}>
+                <div className="form-group">
+                  <label htmlFor="tripName">Trip Name</label>
+                  <input
+                    type="text"
+                    id="tripName"
+                    value={newTripName}
+                    onChange={(e) => setNewTripName(e.target.value)}
+                    placeholder="e.g., Wayanad Adventure"
+                    required
+                  />
+                </div>
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handleDeleteTrip(trip._id)}
-                  className="delete-button"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  disabled={isSubmitting}
                 >
-                  Delete
+                  {isSubmitting ? 'Creating...' : 'Create Trip'}
                 </motion.button>
-              </motion.li>
-            ))}
-          </motion.ul>
+              </form>
+            </div>
+          </div>
+
+          {/* --- THIS IS THE "MY TRIPS" LIST --- */}
+          <div className="w-full lg:w-1/2 px-4">
+            <div className="trips-list">
+              <h2>My Trips</h2>
+              {error && <p className="error">Error: {error}</p>}
+              
+              <motion.ul
+                className="trip-item-list"
+                variants={containerVariant}
+                initial="hidden"
+                animate="visible"
+              >
+                {!isLoading && trips.length === 0 && <p>You have no trips yet. Time to plan one!</p>}
+                {trips.map((trip) => (
+                  <motion.li key={trip._id} className="trip-item" variants={itemVariant}>
+                    <Link to={`/trip/${trip._id}`} className="trip-link">
+                      {trip.name}
+                    </Link>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => handleDeleteTrip(trip._id)}
+                      className="delete-button"
+                    >
+                      Delete
+                    </motion.button>
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </div>
+          </div>
+
         </div>
       </div>
     </PageWrapper>
